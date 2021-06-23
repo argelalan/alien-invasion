@@ -13,7 +13,3 @@ class Settings:
         self.bullet_height = 15
         self. bullet_color = (0, 242, 0)
         self.bullet_limit = 1000
-
-        self.white = (255, 255, 255)
-        self.green = (0, 242, 0)
-        self.orange = (247, 149, 1)
