@@ -6,3 +6,14 @@ class Settings:
         self.screen_width = 800
         self.bg_color = (0, 2, 42)
         self.ship_speed = 1.5
+
+        # Bullet settings
+        self.bullet_speed = 1.5
+        self.bullet_width = 3
+        self.bullet_height = 15
+        self. bullet_color = (0, 242, 0)
+        self.bullet_limit = 1000
+
+        self.white = (255, 255, 255)
+        self.green = (0, 242, 0)
+        self.orange = (247, 149, 1)
