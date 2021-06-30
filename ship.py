@@ -10,7 +10,7 @@ class Ship:
         self.screen_rect = ai_game.screen.get_rect()
         self.settings = ai_game.settings
 
-        self.image = pygame.image.load('images/test_ship.bmp').convert_alpha()
+        self.image = pygame.image.load('images/ship_3.bmp').convert_alpha()
         self.rect = self.image.get_rect()
 
         self.rect.midbottom = self.screen_rect.midbottom
@@ -42,3 +42,8 @@ class Ship:
     def draw_ship(self):
         """Draw ship to screen."""
         self.screen.blit(self.image, self.rect)
+
+    def center_ship(self):
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)

@@ -20,3 +20,6 @@ class Settings:
         self.fleet_drop_speed = 10
         # 1 represents right; -1 represents left.
         self.fleet_direction = 1
+
+        # Number of ships in game
+        self.ship_limit = 3
