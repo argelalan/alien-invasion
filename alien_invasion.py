@@ -96,6 +96,7 @@ class AlienInvasion:
             self.ship.moving_down = False
 
     def _start_game(self):
+        """Set up the start of the game."""
         self.stats.reset_stats()
         self.stats.game_active = True
 
