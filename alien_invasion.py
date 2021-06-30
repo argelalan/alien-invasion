@@ -64,7 +64,6 @@ class AlienInvasion:
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
             self._start_game()
-
             pygame.mouse.set_visible(False)
 
     def _check_keydown_events(self, event):
@@ -97,6 +96,7 @@ class AlienInvasion:
 
     def _start_game(self):
         """Set up the start of the game."""
+        self.settings.initialize_dynamic_settings()
         self.stats.reset_stats()
         self.stats.game_active = True
 
@@ -141,6 +141,7 @@ class AlienInvasion:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
+            self.settings.speedup_game()
 
     def _create_fleet(self):
         """Create alien fleet."""
@@ -226,15 +227,14 @@ class AlienInvasion:
     def _update_screen(self):
         """Update the images on the screen and flip the screen."""
         self.screen.fill(self.settings.bg_color)
-        if not self.stats.game_active:
-            self.play_button.draw_button()
-
         self.ship.draw_ship()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
 
         # Draw button if the game is inactive.
+        if not self.stats.game_active:
+            self.play_button.draw_button()
 
         pygame.display.flip()
 
