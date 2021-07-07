@@ -5,6 +5,8 @@ class Settings:
         """Initialize the game's static settings."""
         self.screen_height = 1200
         self.screen_width = 800
+
+        # Optional background setting.
         self.bg_color = (0, 2, 42)
 
         # Bullet settings
@@ -20,7 +22,7 @@ class Settings:
         self.ship_limit = 3
 
         # How quickly the game speeds up.
-        self.speedup_scale = 1.2
+        self.speedup_scale = 1.4
 
         # How much points increase by as game becomes more difficult
         self.score_scale = 1.5
