@@ -22,11 +22,13 @@ class Button:
         self._prep_msg(msg)
 
     def _prep_msg(self, msg):
+        """Turn the button into a rendered image."""
         self.msg_image = self.font.render(msg, True, self.text_color,
                                           self.button_color)
         self.msg_image_rect = self.msg_image.get_rect()
         self.msg_image_rect.center = self.rect.center
 
     def draw_button(self):
+        """Draw the button to the screen."""
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image.convert(), self.msg_image_rect)
