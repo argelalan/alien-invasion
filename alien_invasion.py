@@ -53,6 +53,7 @@ class AlienInvasion:
         """Monitor mouse and keyboard events."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                self.sb.store_high_score()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
@@ -75,6 +76,7 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
+            self.sb.store_high_score()
             sys.exit()
         elif event.key == pygame.K_UP:
             self.ship.moving_up = True
@@ -152,13 +154,16 @@ class AlienInvasion:
             self.sb.store_high_score()
 
         if not self.aliens:
-            # Destroy existing bullets and create new fleet.
-            self.bullets.empty()
-            self._create_fleet()
-            self.settings.speedup_game()
-            self.stats.level += 1
-            self.sb.prep_level()
-            self.sb.store_high_score()
+            self._start_new_level()
+
+    def _start_new_level(self):
+        """Destroy existing bullets and create new fleet."""
+        self.bullets.empty()
+        self._create_fleet()
+        self.settings.speedup_game()
+        self.stats.level += 1
+        self.sb.prep_level()
+        self.sb.store_high_score()
 
     def _create_fleet(self):
         """Create alien fleet."""

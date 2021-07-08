@@ -16,12 +16,16 @@ class Scoreboard:
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
         self.stats = ai_game.stats
-        self.filename = 'highscore.json'
+        self.filename = 'high_score.json'
 
         self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont(None, 30)
 
         self.read_high_score()
+        self.prep_images()
+
+    def prep_images(self):
+        """Prepare all the images for the scoreboard."""
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
@@ -79,6 +83,7 @@ class Scoreboard:
             self.prep_high_score()
 
     def store_high_score(self):
+        """Write the current high score to a file to save it."""
         try:
             with open(self.filename, 'w') as f:
                 f.write(str(self.high_score))
@@ -86,6 +91,7 @@ class Scoreboard:
             pass
 
     def read_high_score(self):
+        """Change the current high score to the last one stored."""
         try:
             with open(self.filename) as f:
                 new_high_score = json.load(f)
