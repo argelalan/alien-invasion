@@ -1,3 +1,5 @@
+import json
+
 import pygame.font
 from pygame.sprite import Group
 
@@ -14,10 +16,12 @@ class Scoreboard:
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
         self.stats = ai_game.stats
+        self.filename = 'highscore.json'
 
         self.text_color = (255, 255, 255)
-        self.font = pygame.font.SysFont(None, 35)
+        self.font = pygame.font.SysFont(None, 30)
 
+        self.read_high_score()
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
@@ -35,8 +39,8 @@ class Scoreboard:
 
     def prep_high_score(self):
         """Turn high score into a rendered image."""
-        high_score = round(self.stats.high_score, -1)
-        high_score_str = "{:,}".format(high_score)
+        self.high_score = round(self.stats.high_score, -1)
+        high_score_str = "{:,}".format(self.high_score)
         self.high_score_image = self.font.render(
             high_score_str, True, self.text_color, self.settings.bg_color)
         self.high_score_rect = self.high_score_image.get_rect()
@@ -73,3 +77,19 @@ class Scoreboard:
         if self.stats.score > self.stats.high_score:
             self.stats.high_score = self.stats.score
             self.prep_high_score()
+
+    def store_high_score(self):
+        try:
+            with open(self.filename, 'w') as f:
+                f.write(str(self.high_score))
+        except FileNotFoundError:
+            pass
+
+    def read_high_score(self):
+        try:
+            with open(self.filename) as f:
+                new_high_score = json.load(f)
+        except json.decoder.JSONDecodeError:
+            pass
+        else:
+            self.stats.high_score = int(new_high_score)

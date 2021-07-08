@@ -5,9 +5,7 @@ class Settings:
         """Initialize the game's static settings."""
         self.screen_height = 1200
         self.screen_width = 800
-
-        # Optional background setting.
-        self.bg_color = (0, 2, 42)
+        self.bg_color = (13, 15, 64)
 
         # Bullet settings
         self.bullet_width = 3

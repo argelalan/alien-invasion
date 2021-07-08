@@ -35,7 +35,7 @@ class AlienInvasion:
 
         self._create_fleet()
 
-        self.play_button = Button(self, 'PLAY')
+        self.play_button = Button(self, 'P L A Y')
 
     def run_game(self):
         """Start main loop of game."""
@@ -149,6 +149,7 @@ class AlienInvasion:
             self.sb.prep_score()
             self.sb.prep_level()
             self.sb.check_high_score()
+            self.sb.store_high_score()
 
         if not self.aliens:
             # Destroy existing bullets and create new fleet.
@@ -157,6 +158,7 @@ class AlienInvasion:
             self.settings.speedup_game()
             self.stats.level += 1
             self.sb.prep_level()
+            self.sb.store_high_score()
 
     def _create_fleet(self):
         """Create alien fleet."""
