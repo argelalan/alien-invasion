@@ -19,7 +19,7 @@ class Scoreboard:
         self.filename = 'high_score.json'
 
         self.text_color = (255, 255, 255)
-        self.font = pygame.font.SysFont(None, 30)
+        self.font = pygame.font.SysFont('default', 30)
 
         self.read_high_score()
         self.prep_images()

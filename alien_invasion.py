@@ -7,6 +7,7 @@ from settings import Settings
 from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
+from sounds import Sounds
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -28,6 +29,7 @@ class AlienInvasion:
 
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
+        self.sounds = Sounds()
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -39,6 +41,8 @@ class AlienInvasion:
 
     def run_game(self):
         """Start main loop of game."""
+        self.sounds.play_start_noise()
+
         while True:
             self._check_events()
 
@@ -124,6 +128,7 @@ class AlienInvasion:
         """
         if len(self.bullets) < self.settings.bullet_limit:
             new_bullet = Bullet(self)
+            self.sounds.play_gun_sound()
             self.bullets.add(new_bullet)
 
     def _update_bullets(self):
@@ -148,6 +153,7 @@ class AlienInvasion:
         if collisions:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
+                self.sounds.play_damage_sound()
             self.sb.prep_score()
             self.sb.prep_level()
             self.sb.check_high_score()
@@ -158,11 +164,13 @@ class AlienInvasion:
 
     def _start_new_level(self):
         """Destroy existing bullets and create new fleet."""
+
         self.bullets.empty()
         self._create_fleet()
         self.settings.speedup_game()
         self.stats.level += 1
         self.sb.prep_level()
+        self.ship.center_ship()
         self.sb.store_high_score()
 
     def _create_fleet(self):
@@ -230,11 +238,13 @@ class AlienInvasion:
             self._create_fleet()
             self.ship.center_ship()
 
-            # Pause the game.
+            # Play sound and pause the game.
+            self.sounds.play_player_hit_sound()
             sleep(0.5)
         else:
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
+            self.sounds.play_game_over_sound()
 
     def _check_aliens_bottoms(self):
         """

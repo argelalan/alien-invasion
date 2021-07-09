@@ -12,5 +12,5 @@ class Lives(Sprite):
         self.screen_rect = ai_game.screen.get_rect()
         self.settings = ai_game.settings
 
-        self.image = pygame.image.load('images/heart_40.bmp').convert_alpha()
+        self.image = pygame.image.load('images/heart.bmp').convert_alpha()
         self.rect = self.image.get_rect()
